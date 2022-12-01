@@ -1,7 +1,12 @@
 import pytest
 
 
-from src.day_1 import calorie_parser, find_top_elf, find_top_three_total_calories, Elf
+from src.day_1 import (
+    calorie_parser,
+    find_top_n_elves,
+    find_top_three_total_calories,
+    Elf,
+)
 
 
 @pytest.fixture
@@ -33,8 +38,8 @@ def test_calorie_parser():
 
 def test_pipeline_top_elf(calorie_list):
     parsed_elves = calorie_parser(calorie_list)
-    top_elf = find_top_elf(parsed_elves)
-    assert top_elf == Elf(id=188, carried_calories=67016)
+    top_elf = find_top_n_elves(parsed_elves, n=1)
+    assert top_elf == [Elf(id=188, carried_calories=67016)]
 
 
 def test_pipeline_top_three(calorie_list):

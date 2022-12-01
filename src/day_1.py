@@ -29,12 +29,13 @@ def calorie_parser(raw_input: str) -> list[Elf]:
     return elves
 
 
-def find_top_elf(elves: list[Elf]) -> Elf:
+def find_top_n_elves(elves: list[Elf], n: int = 1) -> list[Elf]:
+    if n < 1:
+        raise ValueError("Must be greater than 1.")
     sorted_elves = sorted(elves, key=lambda elf: elf.carried_calories, reverse=True)
-    return sorted_elves[0]
+    return sorted_elves[:n]
 
 
 def find_top_three_total_calories(elves: list[Elf]) -> int:
-    sorted_elves = sorted(elves, key=lambda elf: elf.carried_calories, reverse=True)
-    top_three = sorted_elves[:3]
-    return sum([x.carried_calories for x in top_three])
+    top_elves = find_top_n_elves(elves, n=3)
+    return sum([x.carried_calories for x in top_elves])
